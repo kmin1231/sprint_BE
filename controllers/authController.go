@@ -6,9 +6,9 @@ import (
 
 	"github.com/kmin1231/sprint_BE/config"
 	"github.com/kmin1231/sprint_BE/utils"
-	"golang.org/x/oauth2"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/oauth2"
 )
 
 func GoogleLogin(c *gin.Context) {

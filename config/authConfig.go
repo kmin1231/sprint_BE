@@ -23,6 +23,9 @@ func LoadAuthConfig() {
 	clientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
 	redirectURL := os.Getenv("GOOGLE_REDIRECT_URL")
 
+	// checks whether it works
+	// log.Printf("CLIENT_ID: %s, CLIENT_SECRET: %s, REDIRECT_URL: %s", clientID, clientSecret, redirectURL)
+
 	if (clientID == "") || (clientSecret == "") || (redirectURL == "") {
 		log.Fatal("Google OAuth configuration failed!")
 	}

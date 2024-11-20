@@ -19,7 +19,7 @@ func main() {
 	r.GET("/auth/google", controllers.GoogleLogin)
 	r.GET("/auth/callback", controllers.GoogleCallback)
 
-	if err := r.Run(":3000"); err != nil {
+	if err := r.Run(portNumber); err != nil {
 		log.Fatal("Failed to run server:", err)
 	}
 }
