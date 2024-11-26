@@ -1,10 +1,12 @@
 package utils
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
 
+	"github.com/kmin1231/sprint_BE/config"
 	"golang.org/x/oauth2"
 )
 
@@ -27,4 +29,16 @@ func GetGoogleUserInfo(token *oauth2.Token) (map[string]interface{}, error) {
 	}
 
 	return userInfo, nil
+}
+
+func RefreshAccessToken(refreshToken string) (*oauth2.Token, error) {
+	token := &oauth2.Token{RefreshToken: refreshToken}
+	newToken, err := config.GoogleOAuthConfig.TokenSource(context.Background(), token).Token()
+
+	if err != nil {
+		log.Println("Failed to refresh access token:", err)
+		return nil, err
+	}
+
+	return newToken, nil
 }

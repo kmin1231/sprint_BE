@@ -1,6 +1,8 @@
 package config
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"log"
 	"os"
 
@@ -37,5 +39,14 @@ func LoadAuthConfig() {
 		Endpoint:     google.Endpoint,
 	}
 
-	OAuthStateString = "random_state_string"
+	GenerateRandomState()
+	log.Println("OAuthStateString set to:", OAuthStateString)
+}
+
+func GenerateRandomState() string {
+	bytes := make([]byte, 16)
+	if _, err := rand.Read(bytes); err != nil {
+		log.Fatal("Failed to generate random state:", err)
+	}
+	return hex.EncodeToString(bytes)
 }

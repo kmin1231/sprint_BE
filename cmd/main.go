@@ -7,10 +7,11 @@ import (
 	"github.com/kmin1231/sprint_BE/controllers"
 	"github.com/kmin1231/sprint_BE/utils"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-const portNumber = ":3000"
+const portNumber = ":3100" // to avoid port conflict
 
 func main() {
 	// loads configuration
@@ -19,8 +20,18 @@ func main() {
 
 	r := gin.Default()
 
+	// CORS
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"}, // React
+		AllowMethods:     []string{"GET", "POST", "OPTIONS"},
+		AllowHeaders:     []string{"Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
+
 	r.GET("/auth/google", controllers.GoogleLogin)
 	r.GET("/auth/callback", controllers.GoogleCallback)
+
+	r.POST("/auth/refresh", controllers.RefreshToken)
 
 	// checks
 	if err := utils.CheckDBConnection(); err != nil {

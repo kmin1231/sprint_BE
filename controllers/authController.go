@@ -3,6 +3,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/kmin1231/sprint_BE/config"
 	"github.com/kmin1231/sprint_BE/utils"
@@ -41,6 +42,25 @@ func GoogleCallback(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"user_info": userInfo,
+		"user_info":    userInfo,
+		"access_token": token.AccessToken,
+		"expires_in":   token.Expiry.Sub(time.Now()).Seconds(),
+		"token_type":   token.TokenType,
+	})
+}
+
+func RefreshToken(c *gin.Context) {
+	refreshToken := c.PostForm("refresh_token")
+	token, err := utils.RefreshAccessToken(refreshToken)
+	if err != nil {
+		log.Println("Failed to refresh token:", err)
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"access_token": token.AccessToken,
+		"expires_in":   token.Expiry.Sub(time.Now()).Seconds(),
+		"token_type":   token.TokenType,
 	})
 }
