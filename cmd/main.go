@@ -2,16 +2,14 @@ package main
 
 import (
 	"log"
-
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-
-	"database/sql"
-	// "fmt"
 	"strings"
 	"strconv"
 	"net/http"
 	"time"
+	"database/sql"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -79,7 +77,7 @@ func FetchArticles(c *gin.Context) {
 
 	// count total number of articles
 	var totalCount int
-	countQuery := "SELECT COUNT(*) FROM news WHERE Keywords LIKE ?"
+	countQuery := "SELECT COUNT(*) FROM news2 WHERE Keywords LIKE ?"
 	err = DB.QueryRow(countQuery, "%"+keyword+"%").Scan(&totalCount)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -87,7 +85,7 @@ func FetchArticles(c *gin.Context) {
 	}
 
 	// SQL query
-	query := "SELECT * FROM news WHERE Keywords LIKE ? LIMIT ?"
+	query := "SELECT * FROM news2 WHERE Keywords LIKE ? LIMIT ?"
 	rows, err := DB.Query(query, "%"+keyword+"%", limitInt)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -149,7 +147,7 @@ func GetArticle(c *gin.Context) {
 	articleID := c.Param("article_id")
 
 	// query
-	query := "SELECT * FROM news WHERE ID = ?"
+	query := "SELECT * FROM news2 WHERE ID = ?"
 	row := DB.QueryRow(query, articleID)
 
 	var title, summary, source, url, keywords, date, imageURL string
