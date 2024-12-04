@@ -1,5 +1,25 @@
 # team1_BE
-| 제1회 스프린트 챌린지 1조 - BackEnd
+- *Google Developer Groups on Campus KHU*
+- *The 1st Sprint Challenge (Part Joint Project)*
+- Keyword: **`Disaster`**
+<br>
+
+## `JAETI`: Disaster News Summary Service
+<img src="https://drive.google.com/uc?id=1GN_KJw12iLKW_QegPsj8LC2Nb9E4EOuH" width=35%>
+
+### Key Features
+- **Concise Delivery** of Disaster Information
+- **Filter** news articles using **20+ keywords**
+- Provide **summarized text** with original article URLs → Direct connection to **full articles**
+- Simple Google Login → **Save** news articles → View saved articles on **MyPage**
+
+### Tech Stack
+- **FrontEnd**: **`React`** + **`Vite`**, **`Redux`** (state management)
+- **BackEnd**: Server written in **`Go`**
+- **Database**: **`SQLite`** for lightweight and efficient data storage
+- **AI Integration**: **`Chat GPT API`** for keyword filtering & **text summarization**
+
+<br>
 
 ## <b>Project Structure</b> -- <i>updating!</i>
 ```
